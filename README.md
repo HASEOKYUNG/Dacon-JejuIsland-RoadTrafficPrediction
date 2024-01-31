@@ -3,34 +3,24 @@
 |기간|Tags|역할|
 |:---:|:---:|:---:|
 |2022.10. ~ 2022.11.| DataAnalysis, ML Regression |팀장, 변수 생성 & 모델 개발|
-<br/>
 
-## 프로젝트 소개
-- 제주도내 주민등록인구는 매년 증가하고 있으며, 외국인 관광객까지 고려하면 상주인구가 90만명을 넘을 것으로 추정
-- 제주도민 증가와 외국인의 증가로 현재 제주도의 교통체증이 심각한 문제로 떠오르고 있다.
-- 따라서 제주도 도로 교통량 예측 AI 알고리즘 개발을 주제로 프로젝트를 진행
-- 평가지표 : MAE
+#### 요구사항: 제주도민과 관광객의 증가로 인한 교통체증에 대비하도록 도로 교통량 예측 AI 알고리즘 개발
+#### 1. 데이터 설명
+외부데이터는 Train기간의 데이터만 사용해야 해 Test 기간의 데이터는 예측해야 한다. <br>
+예측 task를 수행하는데 예측 변수를 사용함은 Noise가 되어 주어진 데이터만 사용한다.
+<img width="259" alt="dacon" src="https://github.com/HASEOKYUNG/Dacon-JejuIsland-RoadTrafficPrediction/assets/104245855/cda95f16-468d-414e-84b9-1d7d6c30193d">
 
-<br/>
+#### 2. 데이터 전처리
+- 범주형 변수 중 특정 범주값의 비율이 0.95 이상이면 변수를 제거한다.
+- 출발지점-도착지점(Edge)을 labeling하고 반대방향인 Edge는 음수 labeling한다.
+- osmnx 패키지를 이용해 Edge 길이, 평균 속도, 소요 시간을 구한다. 추가적으로 haversine 거리를 구한다.
 
-## 프로젝트 과정
+#### 3. 모델링
+- 12개의 범주형 변수, 5개의 수치형 변수로 구성된 데이터로 피쳐 생성에 한계가 있고 과적합이 일어나기 쉬운 상황이다.
+- LGBM과 CatBoost, Tabnet외 딥러닝 모델을 얕게 optuna, bayesian optimization하거나 수동으로 튜닝한다.
+- 과적합되지 않은 LGBM, Catboost, Tabnet 모델을 Ensemble한다.
 
-<br/>
-
-#### 1. Data Processing
-- 특정 범주의 빈도가 대부분인 경우 제거
-- 주어진 데이터는 제주도 지역의 경도 위도가 제공된 데이터로 시작지점 목적지점이 나뉜 데이터이다.
-- 따라서 node name을 labeling하고 출발, 도착지점의 방향을 고려한 labeling을 시도, 위도 경도를 통한 거리와 방위각을 계산하여 feature로 추가했다.
-- 추가적으로 달, 요일 요소가 중요하다고 여겨져 해당 feature를 만들어 주었고, 몇몇 변수에 대해 target encoding을 진행, 나머지 범주형 변수에 대해 label encoding을 진행했다.
-- 
-#### 2. Modeling
-- LGBM과 CatBoost 모델을 bayesian optimization 활용하여 튜닝하였고, submission을 생성해 최종적인 submission을 생성했다.
-- 추가로 정형 데이터를 위한 딥러닝 모델인 TabNet을 사용하였다. TabNet 또한 bayesian optimization을 통한 튜닝을 진행하였고, submission을 생성했다.
-
-#### 3. Ensemble
-- 이렇게 얻은 submission들의 가중평균 ensemble을 통해 최종 결과물을 도출했다
-
-
-## 느낀점
-제주 도로 교통량 예측 프로젝트를 진행하면서 이전 공모전의 Data Leakage로 인한 실격을 인지하고 해당 부분에 대해 더욱 꼼꼼하게 확인하며 프로젝트를 진행하였으며,
-time series 데이터의 예측은 예측과 가까운 기간이 더욱 예측에 도움을 줄 수 있다는 것을 다시 한번 인지하게됐다.
+#### 배운 점
+- Data Leakage를 확실히 인지하고 꼼꼼히 따져보며 모델을 개발한 기회였다.
+- 주어진 데이터 특성에 맞게 전처리를 하여 모델 성능을 향상시켜 그 가치를 깨달았다.
+- 분석 단계별 소요 시간을 계획하는 것의 중요성을 체감했다.
