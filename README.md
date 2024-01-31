@@ -8,7 +8,7 @@
 #### 1. 데이터 설명
 외부데이터는 Train기간의 데이터만 사용해야 해 Test 기간의 데이터는 예측해야 한다. <br>
 예측 task를 수행하는데 예측 변수를 사용함은 Noise가 되어 주어진 데이터만 사용한다.
-<img width="259" alt="dacon" src="https://github.com/HASEOKYUNG/Dacon-JejuIsland-RoadTrafficPrediction/assets/104245855/cda95f16-468d-414e-84b9-1d7d6c30193d">
+<center><img width="259" alt="dacon" src="https://github.com/HASEOKYUNG/Dacon-JejuIsland-RoadTrafficPrediction/assets/104245855/cda95f16-468d-414e-84b9-1d7d6c30193d"></center>
 
 #### 2. 데이터 전처리
 - 범주형 변수 중 특정 범주값의 비율이 0.95 이상이면 변수를 제거한다.
