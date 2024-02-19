@@ -19,7 +19,7 @@
 
 #### 3. 모델링
 - 17개의 범주형 변수, 5개의 수치형 변수로 구성된 데이터로 피쳐 생성에 한계가 있고 과적합이 일어나기 쉬운 상황이다.
-- LGBM과 CatBoost, Tabnet외 딥러닝 모델을 얕게 optuna, bayesian optimization하거나 수동으로 튜닝한다.
+- Boosting 계열의 LGBM과 CatBoost와 Tabnet 외 딥러닝 모델을 얕게 optuna, bayesian optimization하거나 수동으로 튜닝한다.
 - 과적합되지 않은 LGBM, Catboost, Tabnet 모델을 Ensemble한다.
 
 #### 배운 점
